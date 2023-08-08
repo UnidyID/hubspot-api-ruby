@@ -43,15 +43,15 @@ module Hubspot
         case signature_version
           when "v1"
             source_string = "#{client_secret}#{request_body}"
-            hash_result = Digest::SHA2.hexdigest(source_string.encode('utf-8'))
+            hash_result = Digest::SHA2.hexdigest(source_string.force_encoding('utf-8'))
             return hash_result
           when "v2"
             source_string =  "#{client_secret}#{http_method}#{http_uri}#{request_body}"
-            hash_result = Digest::SHA2.hexdigest(source_string.encode('utf-8'))
+            hash_result = Digest::SHA2.hexdigest(source_string.force_encoding('utf-8'))
             return hash_result
           when "v3"
             source_string = "#{http_method}#{http_uri}#{request_body}#{timestamp}"
-            hash_result =  OpenSSL::HMAC.base64digest('SHA256', client_secret, source_string.encode('utf-8'))
+            hash_result =  OpenSSL::HMAC.base64digest('SHA256', client_secret, source_string.force_encoding('utf-8'))
             return hash_result
            else
              raise InvalidSignatureVersionError.new(signature_version)
