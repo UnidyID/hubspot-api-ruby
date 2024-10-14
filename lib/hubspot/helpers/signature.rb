@@ -1,6 +1,8 @@
 require 'date'
 require 'openssl'
 
+require_relative '../exceptions'
+
 module Hubspot
   module Helpers
     class Signature
