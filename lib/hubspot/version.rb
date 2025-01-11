@@ -1,3 +1,3 @@
 module Hubspot
-VERSION = '17.1.0'
+VERSION = '19.0.0'
 end

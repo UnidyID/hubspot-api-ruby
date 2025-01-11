@@ -17,7 +17,8 @@ module Hubspot
   module Crm
     module Schemas
       class ObjectTypeDefinitionPatch
-        attr_accessor :labels
+        # The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type.
+        attr_accessor :secondary_display_properties
 
         # The names of properties that should be **required** when creating an object of this type.
         attr_accessor :required_properties
@@ -25,23 +26,28 @@ module Hubspot
         # Names of properties that will be indexed for this object type in by HubSpot's product search.
         attr_accessor :searchable_properties
 
+        attr_accessor :clear_description
+
         # The name of the primary property for this object. This will be displayed as primary on the HubSpot record page for this object type.
         attr_accessor :primary_display_property
 
-        # The names of secondary properties for this object. These will be displayed as secondary on the HubSpot record page for this object type.
-        attr_accessor :secondary_display_properties
+        attr_accessor :description
 
         attr_accessor :restorable
+
+        attr_accessor :labels
 
         # Attribute mapping from ruby-style variable name to JSON key.
         def self.attribute_map
           {
-            :'labels' => :'labels',
+            :'secondary_display_properties' => :'secondaryDisplayProperties',
             :'required_properties' => :'requiredProperties',
             :'searchable_properties' => :'searchableProperties',
+            :'clear_description' => :'clearDescription',
             :'primary_display_property' => :'primaryDisplayProperty',
-            :'secondary_display_properties' => :'secondaryDisplayProperties',
-            :'restorable' => :'restorable'
+            :'description' => :'description',
+            :'restorable' => :'restorable',
+            :'labels' => :'labels'
           }
         end
 
@@ -53,12 +59,14 @@ module Hubspot
         # Attribute type mapping.
         def self.openapi_types
           {
-            :'labels' => :'ObjectTypeDefinitionLabels',
+            :'secondary_display_properties' => :'Array<String>',
             :'required_properties' => :'Array<String>',
             :'searchable_properties' => :'Array<String>',
+            :'clear_description' => :'Boolean',
             :'primary_display_property' => :'String',
-            :'secondary_display_properties' => :'Array<String>',
-            :'restorable' => :'Boolean'
+            :'description' => :'String',
+            :'restorable' => :'Boolean',
+            :'labels' => :'ObjectTypeDefinitionLabels'
           }
         end
 
@@ -83,8 +91,10 @@ module Hubspot
             h[k.to_sym] = v
           }
 
-          if attributes.key?(:'labels')
-            self.labels = attributes[:'labels']
+          if attributes.key?(:'secondary_display_properties')
+            if (value = attributes[:'secondary_display_properties']).is_a?(Array)
+              self.secondary_display_properties = value
+            end
           end
 
           if attributes.key?(:'required_properties')
@@ -99,18 +109,24 @@ module Hubspot
             end
           end
 
+          if attributes.key?(:'clear_description')
+            self.clear_description = attributes[:'clear_description']
+          end
+
           if attributes.key?(:'primary_display_property')
             self.primary_display_property = attributes[:'primary_display_property']
           end
 
-          if attributes.key?(:'secondary_display_properties')
-            if (value = attributes[:'secondary_display_properties']).is_a?(Array)
-              self.secondary_display_properties = value
-            end
+          if attributes.key?(:'description')
+            self.description = attributes[:'description']
           end
 
           if attributes.key?(:'restorable')
             self.restorable = attributes[:'restorable']
+          end
+
+          if attributes.key?(:'labels')
+            self.labels = attributes[:'labels']
           end
         end
 
@@ -132,12 +148,14 @@ module Hubspot
         def ==(o)
           return true if self.equal?(o)
           self.class == o.class &&
-              labels == o.labels &&
+              secondary_display_properties == o.secondary_display_properties &&
               required_properties == o.required_properties &&
               searchable_properties == o.searchable_properties &&
+              clear_description == o.clear_description &&
               primary_display_property == o.primary_display_property &&
-              secondary_display_properties == o.secondary_display_properties &&
-              restorable == o.restorable
+              description == o.description &&
+              restorable == o.restorable &&
+              labels == o.labels
         end
 
         # @see the `==` method
@@ -149,7 +167,7 @@ module Hubspot
         # Calculates hash code according to all attributes.
         # @return [Integer] Hash code
         def hash
-          [labels, required_properties, searchable_properties, primary_display_property, secondary_display_properties, restorable].hash
+          [secondary_display_properties, required_properties, searchable_properties, clear_description, primary_display_property, description, restorable, labels].hash
         end
 
         # Builds the object from hash

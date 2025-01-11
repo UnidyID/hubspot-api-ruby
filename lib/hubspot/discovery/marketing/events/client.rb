@@ -10,9 +10,11 @@ module Hubspot
           def api_classes
             %i[
               attendance_subscriber_state_changes
-              marketing_events_external
-              search
-              settings_external
+              basic
+              list_associations
+              participant_state
+              settings
+              subscriber_state_changes
             ].freeze
           end
         end

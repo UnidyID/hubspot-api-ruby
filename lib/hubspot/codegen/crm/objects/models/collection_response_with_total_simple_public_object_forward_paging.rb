@@ -1,5 +1,5 @@
 =begin
-#CRM Objects
+#Objects
 
 #CRM objects such as companies, contacts, deals, line items, products, tickets, and quotes are standard objects in HubSpot’s CRM. These core building blocks support custom properties, store critical information, and play a central role in the HubSpot application.  ## Supported Object Types  This API provides access to collections of CRM objects, which return a map of property names to values. Each object type has its own set of default properties, which can be found by exploring the [CRM Object Properties API](https://developers.hubspot.com/docs/methods/crm-properties/crm-properties-overview).  |Object Type |Properties returned by default | |--|--| | `companies` | `name`, `domain` | | `contacts` | `firstname`, `lastname`, `email` | | `deals` | `dealname`, `amount`, `closedate`, `pipeline`, `dealstage` | | `products` | `name`, `description`, `price` | | `tickets` | `content`, `hs_pipeline`, `hs_pipeline_stage`, `hs_ticket_category`, `hs_ticket_priority`, `subject` |  Find a list of all properties for an object type using the [CRM Object Properties](https://developers.hubspot.com/docs/methods/crm-properties/get-properties) API. e.g. `GET https://api.hubapi.com/properties/v2/companies/properties`. Change the properties returned in the response using the `properties` array in the request body.
 
@@ -19,16 +19,16 @@ module Hubspot
       class CollectionResponseWithTotalSimplePublicObjectForwardPaging
         attr_accessor :total
 
-        attr_accessor :results
-
         attr_accessor :paging
+
+        attr_accessor :results
 
         # Attribute mapping from ruby-style variable name to JSON key.
         def self.attribute_map
           {
             :'total' => :'total',
-            :'results' => :'results',
-            :'paging' => :'paging'
+            :'paging' => :'paging',
+            :'results' => :'results'
           }
         end
 
@@ -41,8 +41,8 @@ module Hubspot
         def self.openapi_types
           {
             :'total' => :'Integer',
-            :'results' => :'Array<SimplePublicObject>',
-            :'paging' => :'ForwardPaging'
+            :'paging' => :'ForwardPaging',
+            :'results' => :'Array<SimplePublicObject>'
           }
         end
 
@@ -71,14 +71,14 @@ module Hubspot
             self.total = attributes[:'total']
           end
 
+          if attributes.key?(:'paging')
+            self.paging = attributes[:'paging']
+          end
+
           if attributes.key?(:'results')
             if (value = attributes[:'results']).is_a?(Array)
               self.results = value
             end
-          end
-
-          if attributes.key?(:'paging')
-            self.paging = attributes[:'paging']
           end
         end
 
@@ -111,8 +111,8 @@ module Hubspot
           return true if self.equal?(o)
           self.class == o.class &&
               total == o.total &&
-              results == o.results &&
-              paging == o.paging
+              paging == o.paging &&
+              results == o.results
         end
 
         # @see the `==` method
@@ -124,7 +124,7 @@ module Hubspot
         # Calculates hash code according to all attributes.
         # @return [Integer] Hash code
         def hash
-          [total, results, paging].hash
+          [total, paging, results].hash
         end
 
         # Builds the object from hash

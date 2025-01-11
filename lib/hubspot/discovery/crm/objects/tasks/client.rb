@@ -12,7 +12,6 @@ module Hubspot
               %i[
                 basic
                 batch
-                public_object
                 search
               ].freeze
             end

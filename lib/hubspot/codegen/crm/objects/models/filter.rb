@@ -1,5 +1,5 @@
 =begin
-#CRM Objects
+#Objects
 
 #CRM objects such as companies, contacts, deals, line items, products, tickets, and quotes are standard objects in HubSpot’s CRM. These core building blocks support custom properties, store critical information, and play a central role in the HubSpot application.  ## Supported Object Types  This API provides access to collections of CRM objects, which return a map of property names to values. Each object type has its own set of default properties, which can be found by exploring the [CRM Object Properties API](https://developers.hubspot.com/docs/methods/crm-properties/crm-properties-overview).  |Object Type |Properties returned by default | |--|--| | `companies` | `name`, `domain` | | `contacts` | `firstname`, `lastname`, `email` | | `deals` | `dealname`, `amount`, `closedate`, `pipeline`, `dealstage` | | `products` | `name`, `description`, `price` | | `tickets` | `content`, `hs_pipeline`, `hs_pipeline_stage`, `hs_ticket_category`, `hs_ticket_priority`, `subject` |  Find a list of all properties for an object type using the [CRM Object Properties](https://developers.hubspot.com/docs/methods/crm-properties/get-properties) API. e.g. `GET https://api.hubapi.com/properties/v2/companies/properties`. Change the properties returned in the response using the `properties` array in the request body.
 
@@ -17,13 +17,13 @@ module Hubspot
   module Crm
     module Objects
       class Filter
-        attr_accessor :value
-
         attr_accessor :high_value
+
+        attr_accessor :property_name
 
         attr_accessor :values
 
-        attr_accessor :property_name
+        attr_accessor :value
 
         # null
         attr_accessor :operator
@@ -53,10 +53,10 @@ module Hubspot
         # Attribute mapping from ruby-style variable name to JSON key.
         def self.attribute_map
           {
-            :'value' => :'value',
             :'high_value' => :'highValue',
-            :'values' => :'values',
             :'property_name' => :'propertyName',
+            :'values' => :'values',
+            :'value' => :'value',
             :'operator' => :'operator'
           }
         end
@@ -69,10 +69,10 @@ module Hubspot
         # Attribute type mapping.
         def self.openapi_types
           {
-            :'value' => :'String',
             :'high_value' => :'String',
-            :'values' => :'Array<String>',
             :'property_name' => :'String',
+            :'values' => :'Array<String>',
+            :'value' => :'String',
             :'operator' => :'String'
           }
         end
@@ -98,12 +98,12 @@ module Hubspot
             h[k.to_sym] = v
           }
 
-          if attributes.key?(:'value')
-            self.value = attributes[:'value']
-          end
-
           if attributes.key?(:'high_value')
             self.high_value = attributes[:'high_value']
+          end
+
+          if attributes.key?(:'property_name')
+            self.property_name = attributes[:'property_name']
           end
 
           if attributes.key?(:'values')
@@ -112,8 +112,8 @@ module Hubspot
             end
           end
 
-          if attributes.key?(:'property_name')
-            self.property_name = attributes[:'property_name']
+          if attributes.key?(:'value')
+            self.value = attributes[:'value']
           end
 
           if attributes.key?(:'operator')
@@ -161,10 +161,10 @@ module Hubspot
         def ==(o)
           return true if self.equal?(o)
           self.class == o.class &&
-              value == o.value &&
               high_value == o.high_value &&
-              values == o.values &&
               property_name == o.property_name &&
+              values == o.values &&
+              value == o.value &&
               operator == o.operator
         end
 
@@ -177,7 +177,7 @@ module Hubspot
         # Calculates hash code according to all attributes.
         # @return [Integer] Hash code
         def hash
-          [value, high_value, values, property_name, operator].hash
+          [high_value, property_name, values, value, operator].hash
         end
 
         # Builds the object from hash

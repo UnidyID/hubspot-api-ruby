@@ -1,5 +1,5 @@
 =begin
-#Timeline events
+#Timeline
 
 #This feature allows an app to create and configure custom events that can show up in the timelines of certain CRM objects like contacts, companies, tickets, or deals. You'll find multiple use cases for this API in the sections below.
 
@@ -45,7 +45,7 @@ module Hubspot
             fail ArgumentError, "Missing the required parameter 'timeline_event' when calling EventsApi.create"
           end
           # resource path
-          local_var_path = '/crm/v3/timeline/events'
+          local_var_path = '/integrators/timeline/v3/events'
 
           # query parameters
           query_params = opts[:query_params] || {}
@@ -93,17 +93,17 @@ module Hubspot
         # Creates multiple instances of timeline events based on an event template. Once created, these event are immutable on the object timeline and cannot be modified. If the event template was configured to update object properties via `objectPropertyName`, this call will also attempt to updates those properties, or add them if they don't exist.
         # @param batch_input_timeline_event [BatchInputTimelineEvent] The timeline event definition.
         # @param [Hash] opts the optional parameters
-        # @return [BatchResponseTimelineEventResponse]
+        # @return [nil]
         def create_batch(batch_input_timeline_event, opts = {})
-          data, _status_code, _headers = create_batch_with_http_info(batch_input_timeline_event, opts)
-          data
+          create_batch_with_http_info(batch_input_timeline_event, opts)
+          nil
         end
 
         # Creates multiple events
         # Creates multiple instances of timeline events based on an event template. Once created, these event are immutable on the object timeline and cannot be modified. If the event template was configured to update object properties via &#x60;objectPropertyName&#x60;, this call will also attempt to updates those properties, or add them if they don&#39;t exist.
         # @param batch_input_timeline_event [BatchInputTimelineEvent] The timeline event definition.
         # @param [Hash] opts the optional parameters
-        # @return [Array<(BatchResponseTimelineEventResponse, Integer, Hash)>] BatchResponseTimelineEventResponse data, response status code and response headers
+        # @return [Array<(nil, Integer, Hash)>] nil, response status code and response headers
         def create_batch_with_http_info(batch_input_timeline_event, opts = {})
           if @api_client.config.debugging
             @api_client.config.logger.debug 'Calling API: EventsApi.create_batch ...'
@@ -113,7 +113,7 @@ module Hubspot
             fail ArgumentError, "Missing the required parameter 'batch_input_timeline_event' when calling EventsApi.create_batch"
           end
           # resource path
-          local_var_path = '/crm/v3/timeline/events/batch/create'
+          local_var_path = '/integrators/timeline/v3/events/batch/create'
 
           # query parameters
           query_params = opts[:query_params] || {}
@@ -135,7 +135,7 @@ module Hubspot
           post_body = opts[:debug_body] || @api_client.object_to_http_body(batch_input_timeline_event)
 
           # return_type
-          return_type = opts[:debug_return_type] || 'BatchResponseTimelineEventResponse'
+          return_type = opts[:debug_return_type]
 
           # auth_names
           auth_names = opts[:debug_auth_names] || ['oauth2']
@@ -187,7 +187,7 @@ module Hubspot
             fail ArgumentError, "Missing the required parameter 'event_id' when calling EventsApi.get_by_id"
           end
           # resource path
-          local_var_path = '/crm/v3/timeline/events/{eventTemplateId}/{eventId}'.sub('{' + 'eventTemplateId' + '}', CGI.escape(event_template_id.to_s)).sub('{' + 'eventId' + '}', CGI.escape(event_id.to_s))
+          local_var_path = '/integrators/timeline/v3/events/{eventTemplateId}/{eventId}'.sub('{' + 'eventTemplateId' + '}', CGI.escape(event_template_id.to_s)).sub('{' + 'eventId' + '}', CGI.escape(event_id.to_s))
 
           # query parameters
           query_params = opts[:query_params] || {}
@@ -256,7 +256,7 @@ module Hubspot
             fail ArgumentError, "Missing the required parameter 'event_id' when calling EventsApi.get_detail_by_id"
           end
           # resource path
-          local_var_path = '/crm/v3/timeline/events/{eventTemplateId}/{eventId}/detail'.sub('{' + 'eventTemplateId' + '}', CGI.escape(event_template_id.to_s)).sub('{' + 'eventId' + '}', CGI.escape(event_id.to_s))
+          local_var_path = '/integrators/timeline/v3/events/{eventTemplateId}/{eventId}/detail'.sub('{' + 'eventTemplateId' + '}', CGI.escape(event_template_id.to_s)).sub('{' + 'eventId' + '}', CGI.escape(event_id.to_s))
 
           # query parameters
           query_params = opts[:query_params] || {}
@@ -327,7 +327,7 @@ module Hubspot
             fail ArgumentError, "Missing the required parameter 'event_id' when calling EventsApi.get_render_by_id"
           end
           # resource path
-          local_var_path = '/crm/v3/timeline/events/{eventTemplateId}/{eventId}/render'.sub('{' + 'eventTemplateId' + '}', CGI.escape(event_template_id.to_s)).sub('{' + 'eventId' + '}', CGI.escape(event_id.to_s))
+          local_var_path = '/integrators/timeline/v3/events/{eventTemplateId}/{eventId}/render'.sub('{' + 'eventTemplateId' + '}', CGI.escape(event_template_id.to_s)).sub('{' + 'eventId' + '}', CGI.escape(event_id.to_s))
 
           # query parameters
           query_params = opts[:query_params] || {}
